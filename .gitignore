@@ -1,0 +1,22 @@
+# .env.example - Variables de entorno para el proyecto
+# Copia este archivo como .env y configura tus valores
+
+# Puerto del servidor
+PORT=3000
+
+# URL de conexión a MongoDB
+# Para desarrollo local:
+MONGODB_URI=mongodb://localhost:27017/ods-school-platform
+
+# Para MongoDB Atlas (producción):
+# MONGODB_URI=mongodb+srv://usuario:contraseña@cluster.mongodb.net/ods-school-platform?retryWrites=true&w=majority
+
+# Entorno de ejecución
+NODE_ENV=development
+
+# APIs externas (para futuras integraciones)
+# OpenWeatherMap API Key
+OPENWEATHER_API_KEY=tu_api_key_aqui
+
+# Google Maps API Key
+GOOGLE_MAPS_API_KEY=tu_api_key_aqui

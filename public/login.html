@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Plataforma ODS Escuelas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="login-container">
+        <!-- Sección izquierda con información del proyecto -->
+        <div class="login-info">
+            <div class="info-content">
+                <h1><i class="fas fa-globe-americas"></i> Plataforma ODS</h1>
+                <p class="subtitle">Conectando escuelas para un futuro sostenible</p>
+                
+                <div class="ods-features">
+                    <div class="feature">
+                        <i class="fas fa-school"></i>
+                        <span>Colaboración entre escuelas</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-seedling"></i>
+                        <span>Proyectos ambientales</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Monitoreo con IoT</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <span>Red colaborativa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección derecha con el formulario de login -->
+        <div class="login-form-section">
+            <div class="form-container">
+                <h2>Iniciar Sesión</h2>
+                <p>Accede a tu cuenta para conectar con otras escuelas</p>
+
+                <!-- Formulario de login -->
+                <form id="loginForm" class="login-form">
+                    <!-- Campo de correo electrónico -->
+                    <div class="input-group">
+                        <label for="correo">
+                            <i class="fas fa-envelope"></i>
+                            Correo Electrónico
+                        </label>
+                        <input 
+                            type="email" 
+                            id="correo" 
+                            name="correo" 
+                            required 
+                            placeholder="ejemplo@escuela.edu.mx"
+                            autocomplete="email"
+                        >
+                        <span class="error-message" id="correoError"></span>
+                    </div>
+
+                    <!-- Campo de contraseña -->
+                    <div class="input-group">
+                        <label for="contraseña">
+                            <i class="fas fa-lock"></i>
+                            Contraseña
+                        </label>
+                        <div class="password-input">
+                            <input 
+                                type="password" 
+                                id="contraseña" 
+                                name="contraseña" 
+                                required 
+                                placeholder="Ingresa tu contraseña"
+                                autocomplete="current-password"
+                            >
+                            <!-- Botón para mostrar/ocultar contraseña -->
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="contraseñaError"></span>
+                    </div>
+
+                    <!-- Opciones adicionales -->
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="recordarme" name="recordarme">
+                            <span class="checkmark"></span>
+                            Recordarme
+                        </label>
+                        
+                        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <!-- Botón de envío -->
+                    <button type="submit" class="login-button" id="loginButton">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión <href><home class="html"></home></href>
+
+                    </button>
+
+
+                    <!-- Mensaje de estado -->
+                    <div id="statusMessage" class="status-message hidden"></div>
+                </form>
+
+                <!-- Enlaces adicionales -->
+                <div class="form-footer">
+                    <p>¿No tienes cuenta? <a href="#" id="registerLink">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de registro (simple) -->
+    <div id="registerModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Registro de Nueva Escuela</h3>
+            <form id="registerForm">
+                <div class="input-group">
+                    <label for="regNombre">Nombre del responsable</label>
+                    <input type="text" id="regNombre" name="nombre" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="regCorreo">Correo electrónico</label>
+                    <input type="email" id="regCorreo" name="correo" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="regContraseña">Contraseña</label>
+                    <input type="password" id="regContraseña" name="contraseña" required minlength="6">
+                </div>
+                
+                <div class="input-group">
+                    <label for="regInstitucion">Nombre de la institución</label>
+                    <input type="text" id="regInstitucion" name="institucion" required>
+                </div>
+                
+                <button type="submit" class="login-button">Registrarse</button>
+                <div id="registerStatusMessage" class="status-message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript para funcionalidad -->
+    <script src="script.js"></script>
+</body>
+</html>
