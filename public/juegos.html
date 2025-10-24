@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style > /* Estilos específicos para Home que se integran con login.css */
+        .home-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #a8e6cf 0%, #c8f2d4 100%) !important;
+            padding: 20px;
+        }
+
+        .home-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .welcome-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .welcome-section i {
+            font-size: 2rem;
+            color: #66bb6a;
+            background: linear-gradient(135deg, #81c784, #a5d6a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-section h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .weather-info {
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .weather-info h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .weather-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid rgba(76, 175, 80, 0.1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.3);
+            border-color: #66bb6a;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #66bb6a;
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Estilo para el nuevo card de Juegos */
+        .card[data-category="juegos"] .card-icon {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card[data-category="juegos"] .card-title {
+            color: #4caf50;
+        }
+</style> 
+<body>
+    <div class="dashboard-grid">
+        <!-- Perfil de Escuela -->
+        <div class="card" onclick="redirectTo('perfil-escuela', 'Perfil de Escuela')" data-category="perfil">
+            <div class="card-icon">
+                <i class="fas fa-school"></i>
+            </div>
+            <div class="card-title">Juego En construccion Proximamente a realizar</div>
+            <div class="card-description">Futuro Videojuego aun en desarrollo - Vuelva mas tarde </div>
+        </div>
+<!-- PWA Meta Tags -->
+<meta name="theme-color" content="#66bb6a">
+<meta name="description" content="Plataforma ODS Escuelas - Conectando escuelas para un futuro sostenible">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ESCOLOGIA">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/public/Images/ESCOLOGIA.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/public/Images/ESCOLOGIA.png">
+
+<!-- Service Worker Registration -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('✅ Service Worker registrado con éxito');
+                })
+                .catch(error => {
+                    console.log('❌ Error al registrar Service Worker:', error);
+                });
+        });
+    }
+</script>
+</body>
+</html>

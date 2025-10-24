@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Plataforma ODS Escuelas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Estilos específicos para Home que se integran con login.css */
+        .home-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #a8e6cf 0%, #c8f2d4 100%) !important;
+            padding: 20px;
+            position: relative;
+        }
+
+        .home-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .welcome-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .welcome-section i {
+            font-size: 2rem;
+            color: #66bb6a;
+            background: linear-gradient(135deg, #81c784, #a5d6a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-section h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .weather-info {
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .weather-info h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .weather-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Sección informativa de la escuela */
+        .school-info-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .school-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .school-title {
+            flex: 1;
+        }
+
+        .school-title h1 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .school-title p {
+            color: #666;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .mission-card,
+        .vision-card {
+            background: linear-gradient(135deg, #f8fdf9, #e8f5e9);
+            border-left: 4px solid #66bb6a;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover,
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 187, 106, 0.2);
+        }
+
+        .mission-card {
+            border-left-color: #3498db;
+        }
+
+        .vision-card {
+            border-left-color: #e74c3c;
+        }
+
+        .card-icon-large {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #66bb6a;
+        }
+
+        .mission-card .card-icon-large {
+            color: #3498db;
+        }
+
+        .vision-card .card-icon-large {
+            color: #e74c3c;
+        }
+
+        .card-title-large {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card-content-large {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(76, 175, 80, 0.1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.3);
+            border-color: #66bb6a;
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #66bb6a;
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Botón de cierre de sesión */
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .logout-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .logout-btn i {
+            color: white;
+        }
+
+        /* Estadísticas rápidas - ACTUALIZADAS */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Botón de instalación PWA */
+        .install-pwa-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+            /* Oculto por defecto */
+        }
+
+        .install-pwa-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+        }
+
+        .install-pwa-btn i {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .home-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .weather-info {
+                width: 100%;
+            }
+
+            .school-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .logout-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .install-pwa-btn {
+                bottom: 85px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="home-container">
+        <!-- Header con bienvenida -->
+        <div class="home-header">
+            <div class="welcome-section">
+                <i class="fas fa-user-circle"></i>
+                <h2>Bienvenido, <span id="userName">Usuario</span></h2>
+            </div>
+            <div class="weather-info">
+                <h3>Santa Catarina, NL</h3>
+                <p id="weatherData">Cargando clima...</p>
+            </div>
+        </div>
+
+        <!-- Sección informativa de la escuela -->
+        <div class="school-info-section">
+            <div class="school-header">
+                <div class="school-logo">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="school-title">
+                    <h1>🏫 Universidad Tecnológica Santa Catarina</h1>
+                    <p>Comprometidos con el desarrollo sostenible y la educación ambiental</p>
+                </div>
+            </div>
+
+            <!-- Misión y Visión -->
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <div class="card-icon-large">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="card-title-large">🎯 Misión</div>
+                    <div class="card-content-large">
+                        Formar profesionales comprometidos con el desarrollo sostenible,
+                        fomentando la innovación tecnológica responsable y el cuidado del medio ambiente
+                        para construir un futuro mejor para las generaciones venideras.
+                    </div>
+                </div>
+
+                <div class="vision-card">
+                    <div class="card-icon-large">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="card-title-large">👁️ Visión</div>
+                    <div class="card-content-large">
+                        Ser reconocida como una institución líder en educación sostenible,
+                        promoviendo la conciencia ambiental y el desarrollo tecnológico responsable
+                        que inspire a otras escuelas a adoptar prácticas ecológicas y sociales.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estadísticas rápidas ACTUALIZADAS -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="escuelaNombre">UTSC</div>
+                    <div class="stat-label">Escuela</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="alumnoNombre">Juan Pérez</div>
+                    <div class="stat-label">Alumno</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="publicacionesCount">5</div>
+                    <div class="stat-label">Publicaciones</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Perfil de Escuela -->
+            <div class="card" onclick="redirectTo('perfil-escuela', 'Perfil de Escuela')" data-category="perfil">
+                <div class="card-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="card-title">🏫 Perfil de Escuela</div>
+                <div class="card-description">Proyectos activos, ubicación y especialidades</div>
+            </div>
+
+            <!-- Mapa Colaborativo -->
+            <div class="card" onclick="redirectTo('mapa-colaborativo', 'Mapa Colaborativo')" data-category="mapa">
+                <div class="card-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="card-title">🗺️ Mapa Colaborativo</div>
+                <div class="card-description">Visualización geográfica de escuelas participantes</div>
+            </div>
+
+            <!-- Publicación de Proyectos -->
+            <div class="card" onclick="redirectTo('publicacion-proyectos', 'Publicación de Proyectos')"
+                data-category="proyectos">
+                <div class="card-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="card-title">📢 Publicación de Proyectos</div>
+                <div class="card-description">Descripción, objetivos ODS y recursos necesarios</div>
+            </div>
+
+            <!-- Foros y Chat -->
+            <div class="card" onclick="redirectTo('foros-chat', 'Foros y Chat')" data-category="foros">
+                <div class="card-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="card-title">💬 Foros y Chat</div>
+                <div class="card-description">Espacio de discusión y colaboración</div>
+            </div>
+
+            <!-- Panel Administrativo -->
+            <div class="card" onclick="redirectTo('panel-administrativo', 'Panel Administrativo')"
+                data-category="admin">
+                <div class="card-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="card-title">⚙️ Panel Administrativo</div>
+                <div class="card-description">Gestión de usuarios, proyectos y sensores</div>
+            </div>
+
+            <!-- Reportes -->
+            <div class="card" onclick="redirectTo('reportes', 'Reportes')" data-category="reportes">
+                <div class="card-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="card-title">📊 Reportes</div>
+                <div class="card-description">Indicadores de impacto educativo, ambiental y social</div>
+            </div>
+        </div>
+
+        <!-- Botón de instalación PWA -->
+        <button class="install-pwa-btn" id="installPwaBtn" onclick="installPWA()">
+            <i class="fas fa-download"></i>
+        </button>
+
+        <!-- Botón de cierre de sesión -->
+        <button class="logout-btn" onclick="cerrarSesion()">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <script>
+        // Variables globales
+        let deferredPrompt;
+
+        // Función para redirigir con SweetAlert
+        function redirectTo(page, pageName) {
+            Swal.fire({
+                title: 'Redirigiendo...',
+                text: `Redirigiendo a ${pageName}`,
+                icon: 'info',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                timer: 2000,
+                timerProgressBar: true,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            }).then(() => {
+                // Redirigir a la página correspondiente
+                window.location.href = `/${page}`;
+            });
+        }
+
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            Swal.fire({
+                title: '¿Cerrar sesión?',
+                text: '¿Estás seguro que deseas cerrar sesión?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Limpiar información del usuario
+                    localStorage.removeItem('currentUser');
+
+                    // Mostrar mensaje de éxito
+                    Swal.fire({
+                        title: '¡Sesión cerrada!',
+                        text: 'Has cerrado sesión exitosamente',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        // Redirigir al login
+                        window.location.href = '/';
+                    });
+                }
+            });
+        }
+
+        // Función mejorada para cargar información del usuario y publicaciones
+        async function loadUserDashboard() {
+            try {
+                // Obtener información del usuario
+                const userData = JSON.parse(localStorage.getItem('currentUser')) || {
+                    nombre: 'Usuario Demo',
+                    institucion: 'Escuela Demo',
+                    correo: 'demo@escuela.edu.mx'
+                };
+
+                // Actualizar información básica
+                document.getElementById('userName').textContent = userData.nombre || 'Usuario';
+                document.getElementById('escuelaNombre').textContent = userData.institucion || 'UTSC';
+                document.getElementById('alumnoNombre').textContent = userData.nombre || 'Usuario';
+
+                // Obtener publicaciones reales del usuario
+                const response = await fetch('/api/posts', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const posts = await response.json();
+
+                    // Filtrar publicaciones del usuario actual
+                    const userPosts = posts.filter(post =>
+                        post.email === userData.correo
+                    );
+
+                    document.getElementById('publicacionesCount').textContent = userPosts.length;
+
+                    console.log(`📊 Usuario: ${userData.nombre}`);
+                    console.log(`📚 Escuela: ${userData.institucion}`);
+                    console.log(`📝 Publicaciones: ${userPosts.length}`);
+
+                } else {
+                    throw new Error('No se pudieron cargar las publicaciones');
+                }
+
+            } catch (error) {
+                console.error('Error al cargar dashboard del usuario:', error);
+                // Valores por defecto si hay error
+                document.getElementById('publicacionesCount').textContent = '0';
+            }
+        }
+
+        // Reemplaza el DOMContentLoaded existente con este nuevo:
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserDashboard();
+            loadWeather();
+
+            // Actualizar cada 30 segundos
+            setInterval(loadUserDashboard, 30000);
+
+            console.log('HomeAsignaturas Dashboard inicializado correctamente');
+        });
+
+        // Formatear fecha
+        function formatearFecha() {
+            const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            const fecha = new Date();
+            const diaSemana = dias[fecha.getDay()];
+            const dia = fecha.getDate();
+            const mes = meses[fecha.getMonth()];
+            const año = fecha.getFullYear();
+
+            return `${diaSemana}, ${dia} de ${mes} de ${año}`;
+        }
+
+        // Obtener emoji según condición del clima
+        function getWeatherEmoji(main) {
+            const emojis = {
+                'Clear': '☀️',
+                'Clouds': '☁️',
+                'Rain': '🌧️',
+                'Drizzle': '🌦️',
+                'Thunderstorm': '⛈️',
+                'Snow': '❄️',
+                'Mist': '🌫️',
+                'Fog': '🌫️',
+                'Haze': '🌫️'
+            };
+            return emojis[main] || '🌤️';
+        }
+
+        // Traducir descripción del clima al español
+        function traducirDescripcion(descripcion) {
+            const traducciones = {
+                'clear sky': 'Cielo despejado',
+                'few clouds': 'Pocas nubes',
+                'scattered clouds': 'Nubes dispersas',
+                'broken clouds': 'Nubes rotas',
+                'overcast clouds': 'Nublado',
+                'light rain': 'Lluvia ligera',
+                'moderate rain': 'Lluvia moderada',
+                'heavy intensity rain': 'Lluvia intensa',
+                'very heavy rain': 'Lluvia muy intensa',
+                'extreme rain': 'Lluvia extrema',
+                'freezing rain': 'Lluvia helada',
+                'light intensity shower rain': 'Chubasco ligero',
+                'shower rain': 'Chubascos',
+                'heavy intensity shower rain': 'Chubascos intensos',
+                'ragged shower rain': 'Chubascos irregulares',
+                'light snow': 'Nieve ligera',
+                'snow': 'Nieve',
+                'heavy snow': 'Nieve intensa',
+                'sleet': 'Aguanieve',
+                'light shower sleet': 'Aguanieve ligera',
+                'shower sleet': 'Aguanieve',
+                'light rain and snow': 'Lluvia y nieve ligera',
+                'rain and snow': 'Lluvia y nieve',
+                'light shower snow': 'Nevada ligera',
+                'shower snow': 'Nevada',
+                'heavy shower snow': 'Nevada intensa',
+                'mist': 'Niebla',
+                'smoke': 'Humo',
+                'haze': 'Bruma',
+                'sand/dust whirls': 'Remolinos de arena/polvo',
+                'fog': 'Niebla',
+                'sand': 'Arena',
+                'dust': 'Polvo',
+                'volcanic ash': 'Ceniza volcánica',
+                'squalls': 'Borrascas',
+                'tornado': 'Tornado',
+                'thunderstorm': 'Tormenta eléctrica',
+                'thunderstorm with light rain': 'Tormenta con lluvia ligera',
+                'thunderstorm with rain': 'Tormenta con lluvia',
+                'thunderstorm with heavy rain': 'Tormenta con lluvia intensa',
+                'light thunderstorm': 'Tormenta ligera',
+                'heavy thunderstorm': 'Tormenta intensa',
+                'ragged thunderstorm': 'Tormenta irregular',
+                'thunderstorm with drizzle': 'Tormenta con llovizna',
+                'heavy intensity drizzle': 'Llovizna intensa',
+                'drizzle': 'Llovizna',
+                'light intensity drizzle': 'Llovizna ligera',
+                'drizzle with rain': 'Llovizna con lluvia',
+                'light intensity drizzle with rain': 'Llovizna ligera con lluvia',
+                'shower drizzle': 'Llovizna intensa'
+            };
+
+            const descripcionLower = descripcion.toLowerCase();
+            return traducciones[descripcionLower] || descripcion;
+        }
+
+        // Cargar clima con API real - usando el nombre exacto de Santa Catarina, NL
+        function loadWeather() {
+            const API_KEY = "b49eaec69f9202b0591d390ce65bb497"; // Tu API key
+
+            // Usando "Santa Catarina, MX" o "Santa Catarina, NL" - probemos ambas
+            const urls = [
+                `https://api.openweathermap.org/data/2.5/weather?q=Santa Catarina,NL,mx&units=metric&appid=${API_KEY}&lang=es`,
+                `https://api.openweathermap.org/data/2.5/weather?q=Santa Catarina,mx&units=metric&appid=${API_KEY}&lang=es`,
+                `https://api.openweathermap.org/data/2.5/weather?q=Monterrey,mx&units=metric&appid=${API_KEY}&lang=es` // Como fallback
+            ];
+
+            let currentIndex = 0;
+
+            function tryNextUrl() {
+                if (currentIndex >= urls.length) {
+                    document.getElementById('weatherData').innerHTML = `
+                        <div style="font-size: 1.1rem;">${formatearFecha()}</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">🌤️ --°C • No disponible</div>
+                    `;
+                    return;
+                }
+
+                fetch(urls[currentIndex])
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Ciudad no encontrada');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.main) {
+                            const temp = Math.round(data.main.temp);
+                            const descripcion = traducirDescripcion(data.weather[0].description);
+                            const weatherEmoji = getWeatherEmoji(data.weather[0].main);
+
+                            document.getElementById('weatherData').innerHTML = `
+                                <div style="font-size: 1.1rem;">${formatearFecha()}</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">${weatherEmoji} ${temp}°C</div>
+                                <div style="font-size: 0.8rem; margin-top: 3px; opacity: 0.9;">${descripcion}</div>
+                            `;
+                        } else {
+                            throw new Error('Datos incompletos');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar clima:', error);
+                        currentIndex++;
+                        tryNextUrl(); // Intentar siguiente URL
+                    });
+            }
+
+            tryNextUrl();
+        }
+
+        // Simular actualización de estadísticas
+        function updateStats() {
+            // Esto simula actualización de datos en tiempo real
+            document.getElementById('publicacionesCount').textContent = Math.floor(Math.random() * 10) + 3;
+        }
+
+        // Función para instalar PWA
+        function installPWA() {
+            if (deferredPrompt) {
+                // Mostrar el prompt de instalación
+                deferredPrompt.prompt();
+
+                // Esperar a que el usuario responda al prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Usuario aceptó la instalación de PWA');
+                        // Ocultar el botón después de la instalación
+                        document.getElementById('installPwaBtn').style.display = 'none';
+                    } else {
+                        console.log('Usuario rechazó la instalación de PWA');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserInfo();
+            loadWeather();
+            updateStats();
+
+            // Actualizar estadísticas cada 10 segundos
+            setInterval(updateStats, 10000);
+
+            console.log('Home Dashboard inicializado correctamente');
+        });
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registrado con éxito');
+                    })
+                    .catch(error => {
+                        console.log('❌ Error al registrar Service Worker:', error);
+                    });
+            });
+        }
+
+        // Capturar el evento beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevenir que el navegador muestre el prompt automáticamente
+            e.preventDefault();
+
+            // Guardar el evento para usarlo más tarde
+            deferredPrompt = e;
+
+            // Mostrar el botón de instalación personalizado
+            const installBtn = document.getElementById('installPwaBtn');
+            if (installBtn) {
+                installBtn.style.display = 'flex';
+            }
+
+            console.log('✅ PWA lista para instalarse - Botón mostrado');
+        });
+
+        // Detectar si la app ya está instalada
+        window.addEventListener('appinstalled', (evt) => {
+            // Ocultar el botón de instalación
+            const installBtn = document.getElementById('installPwaBtn');
+            if (installBtn) {
+                installBtn.style.display = 'none';
+            }
+
+            console.log('✅ PWA instalada exitosamente');
+        });
+    </script>
+</body>
+
+</html>
