@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
 
 // Importar modelo de Historial
 const Historial = require('../models/Historial');
@@ -93,7 +92,7 @@ router.get('/users/:id', isAdmin, async (req, res) => {
     }
 });
 
-// ✅ ACTUALIZADO: Actualizar usuario CON soporte para cambio de contraseña
+// ✅ CORREGIDO: Actualizar usuario CON soporte para cambio de contraseña (SIN doble hasheo)
 router.put('/users/:id', isAdmin, async (req, res) => {
     try {
         const { nombre, correo, institucion, password } = req.body;
@@ -113,26 +112,26 @@ router.put('/users/:id', isAdmin, async (req, res) => {
         if (correo) user.correo = correo;
         if (institucion) user.institucion = institucion;
         
-       // ✅ Si se proporciona una nueva contraseña, actualizarla
-if (password && password.trim() !== '') {
-    // Validar longitud mínima
-    if (password.length < 6) {
-        return res.status(400).json({ 
-            success: false,
-            error: 'La contraseña debe tener al menos 6 caracteres' 
-        });
-    }
-    
-    // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
-    user.contraseña = password;
-    
-    console.log(`✅ Contraseña actualizada para usuario: ${user.correo}`);
-}
+        // ✅ Si se proporciona una nueva contraseña, actualizarla
+        if (password && password.trim() !== '') {
+            // Validar longitud mínima
+            if (password.length < 6) {
+                return res.status(400).json({ 
+                    success: false,
+                    error: 'La contraseña debe tener al menos 6 caracteres' 
+                });
+            }
+            
+            // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
+            user.contraseña = password;
+            
+            console.log(`✅ Contraseña actualizada para usuario: ${user.correo}`);
+        }
         
         // Actualizar fecha de modificación
         user.fechaActualizacion = Date.now();
         
-        // Guardar cambios
+        // Guardar cambios (el middleware pre('save') hasheará la contraseña)
         await user.save();
         
         // Registrar acción en historial
@@ -199,7 +198,7 @@ router.delete('/users/:id', isAdmin, async (req, res) => {
     }
 });
 
-// ✅ RUTA ESPECÍFICA: Restablecer contraseña de un usuario (alternativa)
+// ✅ CORREGIDO: Restablecer contraseña de un usuario (SIN doble hasheo)
 router.post('/users/:id/reset-password', isAdmin, async (req, res) => {
     try {
         const { nuevaContraseña } = req.body;
@@ -220,10 +219,11 @@ router.post('/users/:id/reset-password', isAdmin, async (req, res) => {
             });
         }
 
-       // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
-user.contraseña = nuevaContraseña;
-user.fechaActualizacion = Date.now();
+        // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
+        user.contraseña = nuevaContraseña;
+        user.fechaActualizacion = Date.now();
         
+        // Guardar (el middleware pre('save') hasheará la contraseña)
         await user.save();
 
         await registrarAccion(req, 'Restablecer contraseña', `Restableció contraseña del usuario ${user.correo}`);
