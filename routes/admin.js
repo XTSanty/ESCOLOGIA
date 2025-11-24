@@ -113,22 +113,21 @@ router.put('/users/:id', isAdmin, async (req, res) => {
         if (correo) user.correo = correo;
         if (institucion) user.institucion = institucion;
         
-        // ✅ Si se proporciona una nueva contraseña, actualizarla
-        if (password && password.trim() !== '') {
-            // Validar longitud mínima
-            if (password.length < 6) {
-                return res.status(400).json({ 
-                    success: false,
-                    error: 'La contraseña debe tener al menos 6 caracteres' 
-                });
-            }
-            
-            // Hashear la nueva contraseña
-            const salt = await bcrypt.genSalt(12);
-            user.contraseña = await bcrypt.hash(password, salt);
-            
-            console.log(`✅ Contraseña actualizada para usuario: ${user.correo}`);
-        }
+       // ✅ Si se proporciona una nueva contraseña, actualizarla
+if (password && password.trim() !== '') {
+    // Validar longitud mínima
+    if (password.length < 6) {
+        return res.status(400).json({ 
+            success: false,
+            error: 'La contraseña debe tener al menos 6 caracteres' 
+        });
+    }
+    
+    // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
+    user.contraseña = password;
+    
+    console.log(`✅ Contraseña actualizada para usuario: ${user.correo}`);
+}
         
         // Actualizar fecha de modificación
         user.fechaActualizacion = Date.now();
@@ -221,10 +220,9 @@ router.post('/users/:id/reset-password', isAdmin, async (req, res) => {
             });
         }
 
-        // Hashear la nueva contraseña
-        const salt = await bcrypt.genSalt(12);
-        user.contraseña = await bcrypt.hash(nuevaContraseña, salt);
-        user.fechaActualizacion = Date.now();
+       // ✅ SOLO asignar - el middleware de User.js la hasheará automáticamente
+user.contraseña = nuevaContraseña;
+user.fechaActualizacion = Date.now();
         
         await user.save();
 
